@@ -71,16 +71,18 @@ class tutoController extends abstractController
         return $this->jsonResponse($tuto, 200);
     }
 
-
     public function index()
     {
-
         $tutos = [];
-
         $manager = new TutoManager();
-
-        $tutos = $manager->findAll();
-
+        if(isset($_GET["page"]))
+        {
+            $tutos = $manager->findAll($_GET["page"]);
+        }
+        else
+        {
+            $tutos = $manager->findAll();
+        }
         return $this->jsonResponse($tutos, 200);
     }
 
